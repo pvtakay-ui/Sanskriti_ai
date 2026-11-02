@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Sanskriti AI - Your Personal AI Companion</title>
+  <meta name="description" content="Voice-first, multilingual, multimodal AI companion for Ashmit Kumar">
+  <meta name="theme-color" content="#070c18">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/lotus.svg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="state-idle">
+  <div class="app-container">
+    <!-- Ambient Himalayan Glow Background -->
+    <div class="ambient-glow glow-top"></div>
+    <div class="ambient-glow glow-bottom"></div>
+
+    <!-- Header / Brand Bar -->
+    <header class="app-header">
+      <div class="brand-group">
+        <div class="lotus-emblem">
+          <img src="assets/icons/lotus.svg" alt="Sanskriti Lotus Logo" class="lotus-icon">
+        </div>
+        <div class="brand-text">
+          <h1 class="brand-title">SANSKRITI AI</h1>
+          <p class="brand-subtitle">Your Personal AI Companion &#9825;</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="btn-transcript-toggle" class="btn-icon" title="View Conversation Transcript">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </button>
+        <button id="btn-settings-toggle" class="btn-icon" title="Voice & System Settings">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- System In-UI Alert / Notification Banner -->
+    <div id="system-alert-banner" class="system-alert-banner" style="display: none;">
+      <span class="alert-icon">&#9888;</span>
+      <span id="alert-text" class="alert-text">Microphone notice</span>
+      <button id="btn-alert-dismiss" class="alert-dismiss-btn" title="Dismiss">&times;</button>
+    </div>
+
+    <!-- Main Visual Stage -->
+    <main class="main-stage">
+      <!-- Left Glassmorphic Status Cards -->
+      <aside class="status-cards-left">
+        <div class="glass-card status-card active" id="card-voice-mode">
+          <div class="card-icon-box">
+            <svg class="card-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+          </div>
+          <div class="card-info">
+            <span class="card-title">Voice Mode</span>
+            <span class="card-status">(Active)</span>
+          </div>
+        </div>
+
+        <div class="glass-card status-card" id="card-thinking">
+          <div class="card-icon-box brain-glow">
+            <svg class="card-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04z"></path>
+              <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"></path>
+            </svg>
+          </div>
+          <div class="card-info">
+            <span class="card-title">Thinking...</span>
+          </div>
+        </div>
+
+        <div class="glass-card status-card" id="card-listening">
+          <div class="card-icon-box listen-bars-box">
+            <span class="mini-bar b1"></span>
+            <span class="mini-bar b2"></span>
+            <span class="mini-bar b3"></span>
+            <span class="mini-bar b4"></span>
+          </div>
+          <div class="card-info">
+            <span class="card-title">Listening...</span>
+          </div>
+        </div>
+
+        <div class="glass-card status-card" id="card-speaking">
+          <div class="card-icon-box speaker-icon-box">
+            <svg class="card-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+          </div>
+          <div class="card-info">
+            <span class="card-title">Speaking...</span>
+          </div>
+        </div>
+
+        <div class="glass-card status-card card-error-box" id="card-error" style="display: none;">
+          <div class="card-icon-box error-icon-box">
+            <svg class="card-svg" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <div class="card-info">
+            <span class="card-title" id="card-error-title">Error</span>
+            <span class="card-status error-status-text" id="card-error-sub">Tap to Retry</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Avatar Character Portrait -->
+      <section class="avatar-center-wrapper">
+        <div class="avatar-portal">
+          <div class="avatar-glow-ring"></div>
+          <div class="avatar-speaker-halo" id="speaker-halo"></div>
+          <div class="avatar-img-container">
+            <img src="assets/images/sanskriti_avatar.jpg" alt="Sanskriti AI" id="sanskriti-avatar-img" class="avatar-image">
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Floating Speech Card & Script -->
+      <aside class="speech-cards-right">
+        <div class="speech-bubble-glass" id="speech-bubble">
+          <div class="speech-header">
+            <span class="speech-sender">Sanskriti</span>
+            <span class="speech-heart">&#128153;</span>
+          </div>
+          <div class="speech-body" id="speech-text">
+            Hello Ashmit! &#128153;<br>
+            Main hoon Sanskriti... Aapki AI Saathi!
+          </div>
+          <div class="speech-waveform" id="speech-waveform">
+            <span class="wave-bar w1"></span>
+            <span class="wave-bar w2"></span>
+            <span class="wave-bar w3"></span>
+            <span class="wave-bar w4"></span>
+            <span class="wave-bar w5"></span>
+            <span class="wave-bar w6"></span>
+            <span class="wave-bar w7"></span>
+            <span class="wave-bar w8"></span>
+          </div>
+        </div>
+
+        <div class="together-always-script">
+          Together Always &#9825;
+        </div>
+      </aside>
+    </main>
+
+    <!-- Optional Quick Text Input (Accessible below avatar) -->
+    <div class="quick-text-bar" id="quick-text-bar">
+      <input type="text" id="quick-text-input" placeholder="Type a message (or tap mic to speak)..." autocomplete="off">
+      <button id="btn-quick-send" class="btn-quick-send" title="Send message">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Bottom Voice Control Deck (Faithful to concept design) -->
+    <footer class="bottom-control-deck">
+      <div class="deck-inner-glass">
+        <!-- Left Pill -->
+        <div class="deck-pill deck-left">
+          <div class="mountain-icon-wrap">
+            <svg class="mountain-svg" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
+              <path d="M8 3l4 8 5-5 5 11H2L8 3z"></path>
+            </svg>
+          </div>
+          <div class="pill-text-col">
+            <span class="pill-sub">Powered by</span>
+            <span class="pill-main">Sanskriti AI</span>
+            <div class="online-indicator">
+              <span class="dot-green"></span>
+              <span class="online-label">Online</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Glowing Mic & Waveforms -->
+        <div class="deck-center-mic-hub">
+          <!-- Left Visualizer Waves -->
+          <div class="soundwave-flank flank-left" id="visualizer-left">
+            <span class="viz-bar v1"></span>
+            <span class="viz-bar v2"></span>
+            <span class="viz-bar v3"></span>
+            <span class="viz-bar v4"></span>
+            <span class="viz-bar v5"></span>
+          </div>
+
+          <!-- The Master Microphone Action Button -->
+          <div class="mic-button-wrapper">
+            <button id="btn-master-mic" class="master-mic-btn" aria-label="Tap to Talk or Interrupt">
+              <div class="mic-pulse-rings">
+                <span class="pulse-ring ring1"></span>
+                <span class="pulse-ring ring2"></span>
+              </div>
+              <div class="mic-btn-core">
+                <svg class="mic-btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                  <line x1="12" y1="19" x2="12" y2="23"></line>
+                  <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+              </div>
+            </button>
+            <div class="mic-label" id="mic-action-label">Tap to Talk</div>
+          </div>
+
+          <!-- Right Visualizer Waves -->
+          <div class="soundwave-flank flank-right" id="visualizer-right">
+            <span class="viz-bar v5"></span>
+            <span class="viz-bar v4"></span>
+            <span class="viz-bar v3"></span>
+            <span class="viz-bar v2"></span>
+            <span class="viz-bar v1"></span>
+          </div>
+        </div>
+
+        <!-- Right Pill with System Badges -->
+        <div class="deck-pill deck-right">
+          <ul class="feature-badges-list">
+            <li class="badge-item"><span class="badge-check">&#10003;</span> Multilingual</li>
+            <li class="badge-item"><span class="badge-check">&#10003;</span> Smart Agent</li>
+            <li class="badge-item"><span class="badge-check">&#10003;</span> Always With You &#9825;</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Expandable Conversation History Drawer -->
+    <div class="transcript-drawer" id="transcript-drawer">
+      <div class="drawer-header">
+        <div class="drawer-header-left">
+          <h3>Conversation Log</h3>
+          <button id="btn-clear-history" class="btn-clear-history" title="Clear conversation history">Clear</button>
+        </div>
+        <button id="btn-close-drawer" class="btn-close">&times;</button>
+      </div>
+      <div class="drawer-messages" id="drawer-messages-list">
+        <!-- Messages will be dynamically rendered and persisted -->
+      </div>
+      <!-- Drawer manual text input -->
+      <div class="drawer-fallback-input">
+        <input type="text" id="manual-text-input" placeholder="Type here if microphone is unavailable..." autocomplete="off">
+        <button id="btn-manual-send" class="btn-send-mini">Send</button>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal-backdrop" id="settings-modal">
+      <div class="modal-box glass-card">
+        <div class="modal-header">
+          <h3>Voice & Companion Settings</h3>
+          <button id="btn-close-settings" class="btn-close">&times;</button>
+        </div>
+        <div class="modal-content">
+          <div class="setting-group">
+            <label for="select-voice">Voice Output (TTS):</label>
+            <select id="select-voice" class="custom-select">
+              <option value="auto">Auto (Best Natural Female Voice)</option>
+            </select>
+          </div>
+
+          <div class="setting-group">
+            <label for="select-lang">Speech Input Language:</label>
+            <select id="select-lang" class="custom-select">
+              <option value="hi-IN" selected>Hindi (भारत)</option>
+              <option value="en-IN">English (India)</option>
+              <option value="pa-IN">Punjabi (ਪੰਜਾਬੀ)</option>
+              <option value="en-US">English (US)</option>
+            </select>
+          </div>
+
+          <div class="setting-group">
+            <label class="toggle-label">
+              <input type="checkbox" id="chk-auto-resume" checked>
+              <span class="toggle-custom"></span>
+              Hands-Free Auto-Resume Listening
+            </label>
+            <small class="setting-hint">Automatically resumes listening after Sanskriti finishes speaking.</small>
+          </div>
+
+          <div class="setting-group">
+            <label class="toggle-label">
+              <input type="checkbox" id="chk-persist-history" checked>
+              <span class="toggle-custom"></span>
+              Save Conversation on This Device
+            </label>
+            <small class="setting-hint">Preserves your conversation history in local browser storage.</small>
+          </div>
+
+          <div class="setting-group">
+            <label>Speech Pitch & Speed:</label>
+            <div class="slider-row">
+              <span>Speed</span>
+              <input type="range" id="range-rate" min="0.8" max="1.3" step="0.05" value="1.0">
+            </div>
+            <div class="slider-row">
+              <span>Pitch</span>
+              <input type="range" id="range-pitch" min="0.8" max="1.3" step="0.05" value="1.05">
+            </div>
+          </div>
+
+          <div class="setting-group system-info-box">
+            <h4>System Information</h4>
+            <p><strong>Owner:</strong> Ashmit Kumar</p>
+            <p><strong>Runtime:</strong> Windows 10 (4 GB RAM Optimized)</p>
+            <p><strong>Phase:</strong> Phase 1 (Voice-First Baseline)</p>
+            <p><strong>Status:</strong> Active & Connected</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Application Scripts -->
+  <script src="js/conversation.js"></script>
+  <script src="js/speech_synthesis.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- PWA Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err => {
+          console.log('SW registration note:', err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

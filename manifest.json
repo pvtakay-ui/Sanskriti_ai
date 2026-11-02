@@ -1,0 +1,25 @@
+{
+  "name": "Sanskriti AI - Personal AI Companion",
+  "short_name": "Sanskriti AI",
+  "description": "Voice-first, multilingual, multimodal AI companion for Ashmit Kumar",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#060a15",
+  "theme_color": "#060a15",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./assets/icons/lotus.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./assets/images/sanskriti_avatar.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

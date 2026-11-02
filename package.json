@@ -1,0 +1,22 @@
+{
+  "name": "sanskriti-ai",
+  "version": "1.0.0",
+  "description": "Sanskriti AI - Voice-first, multilingual, multimodal AI companion for Ashmit Kumar",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node tests/test_phase1.js"
+  },
+  "keywords": [
+    "ai",
+    "companion",
+    "voice-first",
+    "multilingual",
+    "sanskriti-ai"
+  ],
+  "author": "Ashmit Kumar",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

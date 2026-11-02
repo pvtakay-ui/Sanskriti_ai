@@ -1,5 +1,5 @@
-// Sanskriti AI Service Worker v1.1
-const CACHE_NAME = 'sanskriti-ai-v1.1';
+// Sanskriti AI Service Worker v1.2
+const CACHE_NAME = 'sanskriti-ai-v1.2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -39,8 +39,8 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Pass through dynamic API requests to server without caching
-  if (event.request.url.includes('/api/')) {
+  // Never cache POST/PUT/DELETE requests or dynamic API endpoints
+  if (event.request.method !== 'GET' || event.request.url.includes('/api/')) {
     return;
   }
 
